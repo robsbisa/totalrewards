@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    image: wapplerio/php-7.3-apache
+    volumes:
+      - '../../../:/var/www/html/'
+    ports:
+      - '8100:80'
+    restart: always
+    stdin_open: true
+    tty: true
+    logging:
+      options:
+        max-file: '5'
+        max-size: '10m'

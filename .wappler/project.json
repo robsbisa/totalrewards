@@ -1,0 +1,41 @@
+{
+  "projectName": "Calculator",
+  "styleFile": "/css/style.css",
+  "assetsFolder": "/assets",
+  "designFramework": "bootstrap5",
+  "frameworks": [
+    {
+      "name": "fontawesome_5",
+      "type": "cdn"
+    },
+    {
+      "name": "bootstrap5",
+      "type": "local"
+    },
+    {
+      "name": "appConnect",
+      "type": "local"
+    }
+  ],
+  "projectServerModel": "PHP",
+  "runtime": "capacitor",
+  "targets": [
+    {
+      "name": "Development",
+      "remoteURL": "http://localhost:8100",
+      "webServerPort": 8100,
+      "webServerLang": "PHP",
+      "targetType": "docker",
+      "webServer": "apache",
+      "PHPVersion": "7.3.x",
+      "webLoggingMaxFiles": "5",
+      "webLoggingMaxFileSize": "10m"
+    }
+  ],
+  "activeTarget": "Development",
+  "useRouting": true,
+  "addBase": true,
+  "routingHandler": "apache",
+  "projectType": "web",
+  "hostingType": "docker"
+}
