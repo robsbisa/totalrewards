@@ -1,3 +1,23 @@
+<?php
+require('dmxConnectLib/dmxConnect.php');
+
+$app = new \lib\App();
+
+$app->exec(<<<'JSON'
+{
+	"steps": [
+		"Connections/db",
+		"SecurityProviders/security",
+		{
+			"module": "auth",
+			"action": "restrict",
+			"options": {"permissions":"Admin","loginUrl":"index.php","forbiddenUrl":"402.php","provider":"security"}
+		}
+	]
+}
+JSON
+, TRUE);
+?>
 <!doctype html>
 <html>
 
@@ -17,37 +37,22 @@
     <script src="dmxAppConnect/dmxFormatter/dmxFormatter.js" defer></script>
     <link rel="stylesheet" href="dmxAppConnect/dmxValidator/dmxValidator.css" />
     <script src="dmxAppConnect/dmxValidator/dmxValidator.js" defer></script>
-<script src="dmxAppConnect/dmxBootbox5/bootstrap-modbox.min.js" defer></script>
-<script src="dmxAppConnect/dmxBootbox5/dmxBootbox5.js" defer></script>
-<link rel="stylesheet" href="dmxAppConnect/dmxNotifications/dmxNotifications.css" />
-<script src="dmxAppConnect/dmxNotifications/dmxNotifications.js" defer></script>
+    <script src="dmxAppConnect/dmxBootbox5/bootstrap-modbox.min.js" defer></script>
+    <script src="dmxAppConnect/dmxBootbox5/dmxBootbox5.js" defer></script>
+    <link rel="stylesheet" href="dmxAppConnect/dmxNotifications/dmxNotifications.css" />
+    <script src="dmxAppConnect/dmxNotifications/dmxNotifications.js" defer></script>
+    <script src="dmxAppConnect/dmxBrowser/dmxBrowser.js" defer></script>
 </head>
 
-<body is="dmx-app" id="users">
-<dmx-notifications id="notifies1"></dmx-notifications>
+<body id="users" is="dmx-app" dmx-on:ready="">
+    <dmx-notifications id="notifies1"></dmx-notifications>
     <dmx-serverconnect id="scUsers" url="dmxConnect/api/Users.php"></dmx-serverconnect>
     <dmx-data-view id="dvUsers" dmx-bind:data="scUsers.data.query.data"></dmx-data-view>
     <dmx-data-detail id="ddUsers" dmx-bind:data="dvUsers.data" key="user_id"></dmx-data-detail>
     <dmx-serverconnect id="scDelUsers" url="dmxConnect/api/UserDel.php" noload></dmx-serverconnect>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Rewards Calculator</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="users.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="calculator.php">Calculator</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'navbar.php'; ?>
+
     <div class="container my-5 pb-5">
         <div class="row">
             <div class="card px-0">
@@ -82,7 +87,7 @@
                                     <td dmx-text="(active==1)?'Active':'Inactive'" dmx-class:text-success="(active==1)" dmx-class:text-danger="(active!=1)"></td>
                                     <td dmx-text="created_on.formatDate('MMM dd yyyy hh:mm:ss')"></td>
                                     <td>
-                                        <button class="btn btn-sm" dmx-on:click="ddUsers.select(user_id)" dmx-show="(user_type!='Admin')"><i class="far fa-edit" data-bs-toggle="modal" data-bs-target="#UserModalAddEdit"></i></button>
+                                        <button class="btn btn-sm" dmx-on:click="ddUsers.select(user_id)" ><i class="far fa-edit" data-bs-toggle="modal" data-bs-target="#UserModalAddEdit"></i></button>
                                         <button class="btn btn-sm" dmx-on:click="run({'bootbox.confirm':{message:'Are you sure to delete this user?',title:'Delete User',buttons:{confirm:{label:'Yes',className:'btn-danger'},cancel:{label:'No',className:'btn-secondary'}},centerVertical:true,then:{steps:{run:{action:`scDelUsers.load({user_id: user_id});notifies1.success(\'Success! User Deleted\');scUsers.load({},true)`}}},name:'DelUser'}})" dmx-show="(user_type!='Admin')"><i class="far fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
@@ -162,14 +167,7 @@
 
 
     <!-- Footer -->
-    <footer class="text-center text-lg-start bg-light text-muted navbar-dark fixed-bottom">
-        <!-- Copyright -->
-        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2023 Copyright:
-            <a class="text-reset fw-bold" href="#">Ariful</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
+    <?php include 'footer.php'; ?>
     <!-- Footer -->
     <script src="bootstrap/5/js/bootstrap.bundle.min.js"></script>
 </body>
