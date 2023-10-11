@@ -16,6 +16,7 @@
 <script src="dmxAppConnect/dmxBrowser/dmxBrowser.js" defer></script>
 </head>
 <body is="dmx-app" id="index">
+<dmx-serverconnect id="serverconnect1" url="dmxConnect/api/Users.php"></dmx-serverconnect>
 <div is="dmx-browser" id="browser1"></div>
 <dmx-notifications id="notifies1"></dmx-notifications>
 <section class="vh-100">
