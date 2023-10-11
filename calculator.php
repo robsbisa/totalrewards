@@ -43,7 +43,7 @@ JSON
         <div class="row">
             <div class="card px-0">
                 <div class="card-header">
-                    Rewards Calculator
+                    Reward Calculator
                 </div>
                 <div class="card-body">
                     <div class="row mx-0 border-bottom border-dark mb-3">
