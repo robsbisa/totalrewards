@@ -33,6 +33,8 @@ JSON
     <link rel="stylesheet" href="css/style.css" />
     <script src="dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
     <script src="dmxAppConnect/dmxFormatter/dmxFormatter.js" defer></script>
+<link rel="stylesheet" href="dmxAppConnect/dmxValidator/dmxValidator.css" />
+<script src="dmxAppConnect/dmxValidator/dmxValidator.js" defer></script>
 </head>
 
 <body is="dmx-app" id="calculator">
@@ -50,13 +52,13 @@ JSON
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="mb-3">
                                 <label for="inp_fname" class="form-label">Estimate your annual wages:</label>
-                                <input type="text" class="form-control" placeholder="" value="0" id="AnnualIncome">
+                                <input class="form-control" placeholder="" value="0" id="AnnualIncome" data-rule-number="">
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="mb-3">
                                 <label for="inp_fname" class="form-label">Medicare:</label>
-                                <input type="text" class="form-control" placeholder="" id="PayrollTax" dmx-bind:value="(AnnualIncome.value * 0.0145).toFixed(2)" readonly="true">
+                                <input type="number" class="form-control" placeholder="" id="PayrollTax" dmx-bind:value="(AnnualIncome.value * 0.0145).toFixed(2)" readonly="true">
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">

@@ -84,9 +84,12 @@ class core extends Module
 
     public function _while($options) {
         option_require($options, array('while', 'exec'));
+        option_default($options, 'max', PHP_INT_MAX);
 
+        $i = 0;
         while ($this->app->parseObject($options->while)) {
             $this->app->exec($options->exec, TRUE);
+            if (++$i == $options->max) break;
         }
     }
 

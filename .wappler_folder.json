@@ -10,5 +10,9 @@
   "402.php": {
     "layoutPage": "",
     "description": ""
+  },
+  "Vertical_Calculator.php": {
+    "layoutPage": "",
+    "description": "Copy of calculator in vertical table form"
   }
 }

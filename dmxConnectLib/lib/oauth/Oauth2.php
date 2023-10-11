@@ -8,10 +8,12 @@ use \lib\core\FileSystem;
 class Oauth2
 {
     protected $app;
+    protected $name;
     protected $options;
-
+    
     public $access_token = NULL;
-
+    public $refresh_token = NULL;
+    
     public static function get(App $app, $name) {
 		if (isset($app->oauth[$name])) {
 			return $app->oauth[$name];

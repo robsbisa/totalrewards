@@ -32,6 +32,7 @@ function formatter_where($val, $prop, $operator, $value) {
 
     foreach ($val as $key => $obj) {
         $o = (array)$obj;
+        if (!isset($o[$prop])) continue;
         $v = $o[$prop];
         $add = FALSE;
 

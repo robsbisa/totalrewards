@@ -85,6 +85,9 @@ class image extends Module
             case 'gif':
                 $image->saveGIF($path);
                 break;
+            case 'webp':
+                $image->saveWEBP($path, $options->quality);
+                break;
             default:
                 $image->save($path, $options);
                 break;

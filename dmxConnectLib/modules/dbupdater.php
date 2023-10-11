@@ -59,7 +59,7 @@ class dbupdater extends Module
 						break;
 
 					case 'mysql':
-						if (str_contains($version, 'MariaDB') && version_compare($version, '10.5', '>=')) {
+						if (strpos($version, 'MariaDB') !== FALSE && version_compare($version, '10.5', '>=')) {
 							// MariaDB 10.5+ supports RETURNING
 							$query .= " RETURNING $returning";
 
@@ -112,6 +112,11 @@ class dbupdater extends Module
 					foreach ($sub->value as $current) {
 						if (is_object($current)) {
 							$current->{$sub->key} = $identity;
+						} elseif (is_array($current)) {
+							$current = (object)array_merge(
+								array($sub->key => $identity),
+								$current
+							);
 						} else {
 							$current = (object)array(
 								$sub->key => $identity,
@@ -293,6 +298,11 @@ class dbupdater extends Module
 						foreach ($sub->value as $current) {
 							if (is_object($current)) {
 								$current->{$sub->key} = $identity;
+							} elseif (is_array($current)) {
+								$current = (object)array_merge(
+									array($sub->key => $identity),
+									$current
+								);
 							} else {
 								$current = (object)array(
 									$sub->key => $identity,

@@ -49,7 +49,7 @@ class Processor extends \lib\core\NamedSingleton
 			$options->format = 'auto';
 		}
 
-        if (!preg_match('/^(jpe?g|png|gif)$/i', $options->format)) {
+        if (!preg_match('/^(jpe?g|png|gif|webp)$/i', $options->format)) {
             $options->format = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         }
 
@@ -63,6 +63,9 @@ class Processor extends \lib\core\NamedSingleton
                 break;
             case 'gif':
                 $this->saveGIF($filename);
+                break;
+            case 'webp':
+                $this->saveWEBP($filename);
                 break;
             default:
                 // ERROR
@@ -83,6 +86,12 @@ class Processor extends \lib\core\NamedSingleton
 		imagecolortransparent($this->image, $this->transparent());
         imagetruecolortopalette($this->image, TRUE, $maxColors);
         return imagegif($this->image, $filename);
+    }
+
+    public function saveWEBP($filename, $quality = -1) {
+        imagealphablending($this->image, FALSE);
+		imagesavealpha($this->image, TRUE);
+        return imagewebp($this->image, $filename, $quality);
     }
 
     public function resize($width, $height) {

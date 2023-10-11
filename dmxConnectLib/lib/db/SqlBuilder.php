@@ -22,6 +22,7 @@ class SqlBuilder
     public $sortables;
     public $offset;
     public $limit;
+    public $query;
 
     public function __construct(App $app, Connection $connection) {
         $this->app = $app;
@@ -137,7 +138,7 @@ class SqlBuilder
     }
 
     public function where($column, $operator, $value, $bool = 'AND') {
-        $table = isset($this->table->name) ? $this->table->name : $this->table;
+        $table = isset($this->table->alias) ? $this->table->alias : (isset($this->table->name) ? $this->table->name : $this->table);
 
         if (is_object($column)) {
             if (isset($column->table)) {
@@ -259,20 +260,28 @@ class SqlBuilder
     }
 
     private function compileInsert() {
-        return 'INSERT INTO ' . $this->quoteIdentifier($this->table) . ' (' . implode(', ', array_map(array($this, 'compileColumn'), $this->values)) . ') VALUES (' . $this->compileParameters($this->values) . ')';
+        return 'INSERT INTO ' . $this->compileTable($this->table) . ' (' . implode(', ', array_map(array($this, 'compileColumn'), $this->values)) . ') VALUES (' . $this->compileParameters($this->values) . ')';
     }
 
     private function compileUpdate() {
-        return 'UPDATE ' . $this->quoteIdentifier($this->table) . ' ' . $this->compileSet($this->values) . ' ' . $this->compileWheres($this->wheres);
+        return 'UPDATE ' . $this->compileTable($this->table) . ' ' . $this->compileSet($this->values) . ' ' . $this->compileWheres($this->wheres);
     }
 
     private function compileDelete() {
-        return 'DELETE FROM ' . $this->quoteIdentifier($this->table) . ' ' . $this->compileWheres($this->wheres);
+        return 'DELETE FROM ' . $this->compileTable($this->table) . ' ' . $this->compileWheres($this->wheres);
     }
 
     private function compileComponent($component) {
 		$result = method_exists($this, $component) ? $this->$component() : @$this->$component;
 		return $this->{'compile' . ucfirst($component)}($result);
+    }
+
+    private function compileTable($table) {
+        if (is_string($table)) {
+            return $this->quoteIdentifier($table);
+        } else {
+            return isset($table->schema) ? $this->quote($table->schema) . '.' . $this->quote($table->name) : $this->quoteIdentifier($table->name);
+        }
     }
 
     private function compileColumns($columns) {
@@ -295,7 +304,7 @@ class SqlBuilder
         }
 
         if (!isset($column->table)) {
-            $column->table = isset($this->table->name) ? $this->table->name : $this->table;
+            $column->table = isset($this->table->alias) ? $this->table->alias : (isset($this->table->name) ? $this->table->name : $this->table);
         }
 
         if (isset($column->aggregate) && $column->aggregate != '') {
@@ -306,8 +315,12 @@ class SqlBuilder
             $suffix .= ')';
         }
 
-        if (!empty($this->joins) && isset($column->table)) {
-            $prefix .= $this->quoteIdentifier($column->table) . '.';
+        if (!empty($this->joins) && isset($column->table) && !isset($column->isAlias)) {
+            if (isset($column->schema)) {
+                $prefix .= $this->quote($column->schema) . '.' . $this->quote($column->table) . '.';
+            } else {
+                $prefix .= $this->quoteIdentifier($column->table) . '.';
+            }
         }
 
         if (isset($column->alias) && $column->alias != '') {
@@ -318,7 +331,7 @@ class SqlBuilder
     }
 
     private function compileFrom($table) {
-        return 'FROM ' . $this->quoteIdentifier(isset($table->name) ? $table->name : $table) . (isset($table->alias) ? ' AS ' . $this->quoteIdentifier($table->alias) : '');
+        return 'FROM ' . $this->compileTable($table) . (isset($table->alias) ? ' AS ' . $this->quoteIdentifier($table->alias) : '');
     }
 
     private function compileJoins($joins) {
@@ -326,7 +339,10 @@ class SqlBuilder
     }
 
     private function compileJoin($join) {
-        return (isset($join->type) ? strtoupper($join->type) : 'INNER') . ' JOIN ' . $this->quoteIdentifier($join->table) . (isset($join->alias) && $join->alias != '' ? ' AS ' . $this->quoteIdentifier($join->alias) : '') . str_replace('WHERE', ' ON', $this->compileWheres($join->clauses));
+        return (isset($join->type) ? strtoupper($join->type) : 'INNER') . ' JOIN '
+            . (isset($join->schema) ? $this->quote($join->schema) . '.' . $this->quote($join->table): $this->quoteIdentifier($join->table))
+            . (isset($join->alias) && $join->alias != '' ? ' AS ' . $this->quoteIdentifier($join->alias) : '')
+            . str_replace('WHERE', ' ON', $this->compileWheres($join->clauses));
     }
 
     private function compileSet($values) {

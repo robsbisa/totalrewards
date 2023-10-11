@@ -27,6 +27,14 @@ class App
     public $response;
     public $session;
 
+    public $arrays;
+    public $db;
+    public $mail;
+    public $auth;
+    public $oauth;
+    public $s3;
+    public $jwt;
+
     public function __construct() {
         $this->WIN = strtoupper(substr(PHP_OS, 0, 3));
 
@@ -37,6 +45,7 @@ class App
         $this->response = new Response($this);
         $this->session = new Session();
 
+        $this->arrays = array();
         $this->db = array();
         $this->mail = array();
         $this->auth = array();

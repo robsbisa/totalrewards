@@ -19,6 +19,9 @@ class Request
     public $secure;
     public $xhr;
     public $protocol;
+    public $server;
+    public $get;
+    public $post;
 
     public function __construct($app) {
         $this->app = $app;
