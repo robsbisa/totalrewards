@@ -14,5 +14,13 @@
   "Vertical_Calculator.php": {
     "layoutPage": "",
     "description": "Copy of calculator in vertical table form"
+  },
+  "vertical.php": {
+    "layoutPage": "",
+    "description": "Vertical compensation calculator "
+  },
+  "VerticalCalculator.php": {
+    "layoutPage": "",
+    "description": ""
   }
 }
