@@ -108,7 +108,7 @@ $app->define(<<<'JSON'
               "module": "dbupdater",
               "action": "update",
               "options": {
-                "connection": "DBAriful",
+                "connection": "db",
                 "sql": {
                   "type": "update",
                   "values": [
@@ -267,7 +267,7 @@ $app->define(<<<'JSON'
               "module": "dbupdater",
               "action": "insert",
               "options": {
-                "connection": "DBAriful",
+                "connection": "db",
                 "sql": {
                   "type": "insert",
                   "values": [

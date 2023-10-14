@@ -7,7 +7,7 @@ $exports = <<<'JSON'
   "options": {
     "secret": "nYswZdHQMqYAIqz",
     "provider": "Database",
-    "connection": "DBAriful",
+    "connection": "db",
     "users": {
       "table": "users",
       "identity": "user_id",
@@ -21,11 +21,6 @@ $exports = <<<'JSON'
         "conditions": [
           {
             "column": "active",
-            "operator": "=",
-            "value": "1"
-          },
-          {
-            "column": "calculator_access",
             "operator": "=",
             "value": "1"
           }

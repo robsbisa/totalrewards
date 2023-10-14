@@ -20,7 +20,7 @@ $app->define(<<<'JSON'
       "module": "dbupdater",
       "action": "delete",
       "options": {
-        "connection": "DBAriful",
+        "connection": "db",
         "sql": {
           "type": "delete",
           "table": "users",

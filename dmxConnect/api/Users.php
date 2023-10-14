@@ -32,7 +32,7 @@ $app->define(<<<'JSON'
       "module": "dbconnector",
       "action": "paged",
       "options": {
-        "connection": "DBAriful",
+        "connection": "db",
         "sql": {
           "type": "SELECT",
           "columns": [
@@ -173,7 +173,7 @@ $app->define(<<<'JSON'
               "name": "active"
             },
             {
-              "type": "datetime",
+              "type": "text",
               "name": "created_on"
             },
             {
