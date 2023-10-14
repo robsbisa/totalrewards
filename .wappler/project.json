@@ -22,20 +22,17 @@
   "targets": [
     {
       "name": "Development",
-      "remoteURL": "http://localhost:8100",
-      "webServerPort": 8100,
-      "webServerLang": "PHP",
-      "targetType": "docker",
-      "webServer": "apache",
-      "PHPVersion": "7.3.x",
-      "webLoggingMaxFiles": "5",
-      "webLoggingMaxFileSize": "10m"
+      "remoteURL": "http://viewablebenefits.net",
+      "access": "ftp",
+      "ftpServer": "198.12.220.156",
+      "ftpPort": 21,
+      "ftpUser": "robcompensation@viewablebenefits.net",
+      "ftpPassword": "149ce2f6a7afebfc60f7"
     }
   ],
   "activeTarget": "Development",
   "useRouting": true,
   "addBase": true,
   "routingHandler": "apache",
-  "projectType": "web",
-  "hostingType": "docker"
+  "projectType": "web"
 }
