@@ -61,36 +61,41 @@ JSON
                                     <label for="inp_fname" class="form-label">Your matching Medicare tax benefit:</label>
                                     <input type="text" class="form-control" placeholder="" id="PayrollTax" dmx-bind:value="(AnnualIncome.value.toNumber() * 0.0145).formatCurrency())" readonly="true">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="inp_fname" class="form-label">Your matching Social Security tax benefit:</label>
+                                    <input type="text" class="form-control" placeholder="" id="SocialSecurity" dmx-bind:value="(AnnualIncome.value.toNumber() * 0.062).formatCurrency())" readonly="true">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inp_fname" class="form-label">Your total matching tax benefit:</label>
+                                    <input type="text" class="form-control" placeholder="" id="FICA" dmx-bind:value="(isNaN(PayrollTax.value) ? 0 : parseFloat(PayrollTax.value)) + (isNaN(SocialSecurity.value) ? 0 : parseFloat(SocialSecurity.value)).toNumber().toLocaleString('en-US', { style: 'currency', currency: 'USD' })" readonly="true">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inp_fname" class="form-label">How much do you defer to your 403(b) retirement plan? (Percent):</label>
+                                    <select type="text" class="form-select" required="" id="RetirementPlanPercent">
+                                        <option value="0">0%</option>
+                                        <option value="1">1%</option>
+                                        <option value="2">2%</option>
+                                        <option value="3">3%</option>
+                                        <option value="4">4%</option>
+                                        <option value="5">5%</option>
+                                        <option value="6">6%</option>
+                                        <option value="7">7%</option>
+                                        <option value="8">8%</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="mb-3">
+                                        <label for="inp_fname" class="form-label">Your 403(b) National University match:</label>
+                                        <input type="text" class="form-control" placeholder="" id="NationalUnivMatch" dmx-bind:value="((RetirementPlanPercent.value<3)?(AnnualIncome.value*0.03).toFixed(2):((RetirementPlanPercent.value>2) &amp;&amp; (RetirementPlanPercent.value<5))?(AnnualIncome.value*0.04).toFixed(2):((RetirementPlanPercent.value>4) &amp;&amp; (RetirementPlanPercent.value<6))?(AnnualIncome.value*0.05).toFixed(2):((RetirementPlanPercent.value>5) &amp;&amp; (RetirementPlanPercent.value<7))?(AnnualIncome.value*0.06).toFixed(2):(RetirementPlanPercent.value>6)?(AnnualIncome.value*0.07).toFixed(2):'')" readonly="true">
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="mb-3">
-                                    <label for="inp_fname" class="form-label">Your matching Social Security benefit:</label>
-                                    <input type="text" class="form-control" placeholder="" id="FICAMedBenefit" dmx-bind:value="((AnnualIncome.value.toNumber() > 167770 ? min(10397.40 + PayrollTax.value.toNumber(), 10397.40) : AnnualIncome.value.toNumber() * 0.062).formatCurrency(" $", "." , "," , 2))" readonly="true">
+
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="mb-3">
-                                <label for="inp_fname" class="form-label">How much do you defer to your 403(b) retirement plan? (Percent):</label>
-                                <select type="text" class="form-select" required="" id="RetirementPlanPercent">
-                                    <option value="0">0%</option>
-                                    <option value="1">1%</option>
-                                    <option value="2">2%</option>
-                                    <option value="3">3%</option>
-                                    <option value="4">4%</option>
-                                    <option value="5">5%</option>
-                                    <option value="6">6%</option>
-                                    <option value="7">7%</option>
-                                    <option value="8">8%</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="mb-3">
-                                <label for="inp_fname" class="form-label">Your 403(b) National University match:</label>
-                                <input type="text" class="form-control" placeholder="" id="NationalUnivMatch" dmx-bind:value="((RetirementPlanPercent.value<3)?(AnnualIncome.value*0.03).toFixed(2):((RetirementPlanPercent.value>2) &amp;&amp; (RetirementPlanPercent.value<5))?(AnnualIncome.value*0.04).toFixed(2):((RetirementPlanPercent.value>4) &amp;&amp; (RetirementPlanPercent.value<6))?(AnnualIncome.value*0.05).toFixed(2):((RetirementPlanPercent.value>5) &amp;&amp; (RetirementPlanPercent.value<7))?(AnnualIncome.value*0.06).toFixed(2):(RetirementPlanPercent.value>6)?(AnnualIncome.value*0.07).toFixed(2):'')" readonly="true">
-                            </div>
                         </div>
                     </div>
                     <div class="row mx-0 border-bottom border-dark mb-3">

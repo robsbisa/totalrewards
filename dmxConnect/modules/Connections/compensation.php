@@ -3,12 +3,12 @@
 // Database Adapter : "mysql"
 $exports = <<<'JSON'
 {
-    "name": "DBAriful",
+    "name": "compensation",
     "module": "dbconnector",
     "action": "connect",
     "options": {
         "server": "mysql",
-        "connectionString": "mysql:host=184.168.103.39;dbname=ejc2021kxj;user=nejck21;password=nejc2018@",
+        "connectionString": "mysql:host=198.12.220.156;charset=utf8;sslverify=false;dbname=compensation;user=doadmin;password=AVNS_6tzZcBuYlOqEjrgC0Bm",
         "meta"  : {}
     }
 }

@@ -81,7 +81,7 @@ $app->define(<<<'JSON'
               "module": "dbconnector",
               "action": "single",
               "options": {
-                "connection": "db",
+                "connection": "compensation",
                 "sql": {
                   "type": "SELECT",
                   "columns": [
@@ -117,7 +117,8 @@ $app->define(<<<'JSON'
                             "name": "email"
                           }
                         },
-                        "operation": "="
+                        "operation": "=",
+                        "table": "users"
                       },
                       {
                         "id": "users.active",
@@ -137,13 +138,14 @@ $app->define(<<<'JSON'
                             "name": "active"
                           }
                         },
-                        "operation": "="
+                        "operation": "=",
+                        "table": "users"
                       }
                     ],
                     "conditional": null,
                     "valid": true
                   },
-                  "query": "SELECT authcode\nFROM users\nWHERE email = :P1 /* {{$_POST.email}} */ AND active = :P2 /* {{1}} */",
+                  "query": "select `authcode` from `users` where `users`.`email` = ? and `users`.`active` = ?",
                   "params": [
                     {
                       "operator": "equal",

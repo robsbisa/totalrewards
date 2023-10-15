@@ -108,7 +108,7 @@ $app->define(<<<'JSON'
               "module": "dbupdater",
               "action": "update",
               "options": {
-                "connection": "db",
+                "connection": "compensation",
                 "sql": {
                   "type": "update",
                   "values": [
@@ -267,7 +267,7 @@ $app->define(<<<'JSON'
               "module": "dbupdater",
               "action": "insert",
               "options": {
-                "connection": "db",
+                "connection": "compensation",
                 "sql": {
                   "type": "insert",
                   "values": [

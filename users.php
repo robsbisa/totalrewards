@@ -1,23 +1,3 @@
-<?php
-require('dmxConnectLib/dmxConnect.php');
-
-$app = new \lib\App();
-
-$app->exec(<<<'JSON'
-{
-	"steps": [
-		"Connections/db",
-		"SecurityProviders/security",
-		{
-			"module": "auth",
-			"action": "restrict",
-			"options": {"permissions":"Admin","loginUrl":"index.php","forbiddenUrl":"402.php","provider":"security"}
-		}
-	]
-}
-JSON
-, TRUE);
-?>
 <!doctype html>
 <html>
 
@@ -87,7 +67,7 @@ JSON
                                     <td dmx-text="(active==1)?'Active':'Inactive'" dmx-class:text-success="(active==1)" dmx-class:text-danger="(active!=1)"></td>
                                     <td dmx-text="created_on.formatDate('MMM dd yyyy hh:mm:ss')"></td>
                                     <td>
-                                        <button class="btn btn-sm" dmx-on:click="ddUsers.select(user_id)" ><i class="far fa-edit" data-bs-toggle="modal" data-bs-target="#UserModalAddEdit"></i></button>
+                                        <button class="btn btn-sm" dmx-on:click="ddUsers.select(user_id)"><i class="far fa-edit" data-bs-toggle="modal" data-bs-target="#UserModalAddEdit"></i></button>
                                         <button class="btn btn-sm" dmx-on:click="run({'bootbox.confirm':{message:'Are you sure to delete this user?',title:'Delete User',buttons:{confirm:{label:'Yes',className:'btn-danger'},cancel:{label:'No',className:'btn-secondary'}},centerVertical:true,then:{steps:{run:{action:`scDelUsers.load({user_id: user_id});notifies1.success(\'Success! User Deleted\');scUsers.load({},true)`}}},name:'DelUser'}})" dmx-show="(user_type!='Admin')"><i class="far fa-trash-alt"></i></button>
                                     </td>
                                 </tr>

@@ -1,16 +1,15 @@
 <?php
-// Database Type : "MySQL"
-// Database Adapter : "mysql"
 $exports = <<<'JSON'
 {
-    "name": "DBAriful",
-    "module": "dbconnector",
-    "action": "connect",
-    "options": {
-        "server": "mysql",
-        "connectionString": "mysql:host=184.168.103.39;dbname=ejc2021kxj;user=nejck21;password=nejc2018@",
-        "meta"  : {}
-    }
+  "name": "DBAriful",
+  "module": "dbconnector",
+  "action": "connect",
+  "options": {
+    "server": "mysql",
+    "databaseType": "MySQL",
+    "connectionString": "mysql:host=198.12.220.156;dbname=compensation;user=doadmin;password=AVNS_6tzZcBuYlOqEjrgC0Bm;sslverify=false",
+    "meta": false
+  }
 }
 JSON;
 ?>

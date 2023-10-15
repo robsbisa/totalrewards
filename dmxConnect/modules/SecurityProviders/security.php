@@ -7,7 +7,7 @@ $exports = <<<'JSON'
   "options": {
     "secret": "nYswZdHQMqYAIqz",
     "provider": "Database",
-    "connection": "db",
+    "connection": "compensation",
     "users": {
       "table": "users",
       "identity": "user_id",
@@ -42,7 +42,8 @@ $exports = <<<'JSON'
           }
         ]
       }
-    }
+    },
+    "passwordVerify": true
   },
   "meta": [
     {

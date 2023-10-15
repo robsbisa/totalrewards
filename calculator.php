@@ -1,23 +1,3 @@
-<?php
-require('dmxConnectLib/dmxConnect.php');
-
-$app = new \lib\App();
-
-$app->exec(<<<'JSON'
-{
-	"steps": [
-		"Connections/db",
-		"SecurityProviders/security",
-		{
-			"module": "auth",
-			"action": "restrict",
-			"options": {"permissions":"write","loginUrl":"index.php","forbiddenUrl":"402.php","provider":"security"}
-		}
-	]
-}
-JSON
-, TRUE);
-?>
 <!doctype html>
 <html>
 
@@ -33,8 +13,8 @@ JSON
     <link rel="stylesheet" href="css/style.css" />
     <script src="dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
     <script src="dmxAppConnect/dmxFormatter/dmxFormatter.js" defer></script>
-<link rel="stylesheet" href="dmxAppConnect/dmxValidator/dmxValidator.css" />
-<script src="dmxAppConnect/dmxValidator/dmxValidator.js" defer></script>
+    <link rel="stylesheet" href="dmxAppConnect/dmxValidator/dmxValidator.css" />
+    <script src="dmxAppConnect/dmxValidator/dmxValidator.js" defer></script>
 </head>
 
 <body is="dmx-app" id="calculator">

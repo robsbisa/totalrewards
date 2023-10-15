@@ -27,7 +27,7 @@ $app->define(<<<'JSON'
           "module": "dbconnector",
           "action": "single",
           "options": {
-            "connection": "db",
+            "connection": "compensation",
             "sql": {
               "type": "SELECT",
               "columns": [

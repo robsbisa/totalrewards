@@ -22,8 +22,11 @@
   "targets": [
     {
       "name": "Development",
-      "remoteURL": "http://localhost:3000/",
-      "access": "local"
+      "remoteURL": "http://viewablebenefits.net",
+      "access": "ftp",
+      "ftpServer": "198.12.220.156",
+      "ftpUser": "robcompensation@viewablebenefits.net",
+      "ftpPassword": "149ce2f6a7afebfc60f7"
     }
   ],
   "activeTarget": "Development",
