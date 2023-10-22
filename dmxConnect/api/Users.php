@@ -35,19 +35,18 @@ $app->define(<<<'JSON'
         "options": {
           "provider": "security",
           "permissions": [
-            "write"
+            "AdminAccess"
           ],
           "loginUrl": "/index.php",
           "forbiddenUrl": "/402.php"
-        },
-        "disabled": true
+        }
       },
       {
         "name": "query",
         "module": "dbconnector",
         "action": "paged",
         "options": {
-          "connection": "compensation",
+          "connection": "robcompensation",
           "sql": {
             "type": "SELECT",
             "columns": [

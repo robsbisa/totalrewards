@@ -10,7 +10,41 @@ $app->define(<<<'JSON'
     "options": {
       "linkedFile": "/index.php",
       "linkedForm": "scFormLogin"
-    }
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "email",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": ""
+            },
+            "core:email": {
+              "param": ""
+            }
+          }
+        },
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "fieldName": "password",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": ""
+            }
+          }
+        },
+        "name": "password"
+      },
+      {
+        "type": "text",
+        "fieldName": "remember",
+        "name": "remember"
+      }
+    ]
   },
   "exec": {
     "steps": {
@@ -32,7 +66,7 @@ $app->define(<<<'JSON'
                     "rules": {
                       "db:exists": {
                         "param": {
-                          "connection": "compensation",
+                          "connection": "robcompensation",
                           "table": "users",
                           "column": "email"
                         }
@@ -43,30 +77,95 @@ $app->define(<<<'JSON'
               }
             },
             {
-              "name": "custom",
-              "module": "dbupdater",
-              "action": "custom",
+              "name": "query",
+              "module": "dbconnector",
+              "action": "single",
               "options": {
-                "connection": "compensation",
+                "connection": "robcompensation",
                 "sql": {
-                  "query": "SELECT authcode as salt\nFROM users\nWHERE email = @email AND active = 1;",
+                  "type": "SELECT",
+                  "columns": [
+                    {
+                      "table": "users",
+                      "column": "authcode"
+                    }
+                  ],
+                  "table": {
+                    "name": "users"
+                  },
+                  "primary": "user_id",
+                  "joins": [],
+                  "wheres": {
+                    "condition": "AND",
+                    "rules": [
+                      {
+                        "id": "users.email",
+                        "field": "users.email",
+                        "type": "string",
+                        "operator": "equal",
+                        "value": "{{$_POST.email}}",
+                        "data": {
+                          "table": "users",
+                          "column": "email",
+                          "type": "text",
+                          "columnObj": {
+                            "type": "string",
+                            "maxLength": 100,
+                            "primary": false,
+                            "nullable": false,
+                            "name": "email"
+                          }
+                        },
+                        "operation": "="
+                      },
+                      {
+                        "id": "users.active",
+                        "field": "users.active",
+                        "type": "double",
+                        "operator": "equal",
+                        "value": "{{1}}",
+                        "data": {
+                          "table": "users",
+                          "column": "active",
+                          "type": "number",
+                          "columnObj": {
+                            "type": "integer",
+                            "primary": false,
+                            "nullable": false,
+                            "name": "active"
+                          }
+                        },
+                        "operation": "="
+                      }
+                    ],
+                    "conditional": null,
+                    "valid": true
+                  },
+                  "query": "SELECT authcode\nFROM users\nWHERE email = :P1 /* {{$_POST.email}} */ AND active = :P2 /* {{1}} */",
                   "params": [
                     {
-                      "name": "@email",
-                      "value": "{{$_POST.email}}",
-                      "test": "hardy.john@example.com"
+                      "operator": "equal",
+                      "type": "expression",
+                      "name": ":P1",
+                      "value": "{{$_POST.email}}"
+                    },
+                    {
+                      "operator": "equal",
+                      "type": "expression",
+                      "name": ":P2",
+                      "value": "{{1}}"
                     }
                   ]
                 }
               },
-              "output": false,
+              "output": true,
               "meta": [
                 {
-                  "name": "salt",
-                  "type": "text"
+                  "type": "text",
+                  "name": "authcode"
                 }
               ],
-              "outputType": "array"
+              "outputType": "object"
             },
             {
               "name": "identity",
@@ -75,7 +174,7 @@ $app->define(<<<'JSON'
               "options": {
                 "provider": "security",
                 "username": "{{$_POST.email}}",
-                "password": "{{$_POST.password.sha256(custom[0].salt)}}"
+                "password": "{{$_POST.password.sha256(query.authcode)}}"
               },
               "output": false,
               "meta": []

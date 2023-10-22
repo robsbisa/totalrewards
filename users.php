@@ -6,12 +6,12 @@ $app = new \lib\App();
 $app->exec(<<<'JSON'
 {
 	"steps": [
-		"Connections/compensation",
+		"Connections/robcompensation",
 		"SecurityProviders/security",
 		{
 			"module": "auth",
 			"action": "restrict",
-			"options": {"permissions":"Admin","loginUrl":"index.php","forbiddenUrl":"402.php","provider":"security"}
+			"options": {"permissions":"AdminAccess","loginUrl":"index.php","forbiddenUrl":"402.php","provider":"security"}
 		}
 	]
 }
@@ -82,6 +82,7 @@ JSON
                                     <td dmx-text="lastname"></td>
                                     <td dmx-text="user_type"></td>
                                     <td dmx-text="email"></td>
+                                    
                                     <td dmx-text="(calculator_access==1)?'Yes':'No'" dmx-class:text-primary="(calculator_access==1)" dmx-class:text-warning="(calculator_access!=1)"></td>
                                     <td dmx-text="(active==1)?'Active':'Inactive'" dmx-class:text-success="(active==1)" dmx-class:text-danger="(active!=1)"></td>
                                     <td dmx-text="created_on.formatDate('MMM dd yyyy hh:mm:ss')"></td>

@@ -13,6 +13,19 @@ $app->define(<<<'JSON'
     "try": {
       "steps": [
         {
+          "name": "",
+          "module": "auth",
+          "action": "restrict",
+          "options": {
+            "provider": "security",
+            "permissions": [
+              "write"
+            ],
+            "loginUrl": "/index.php",
+            "forbiddenUrl": "/402.php"
+          }
+        },
+        {
           "name": "identity",
           "module": "auth",
           "action": "identify",
@@ -33,9 +46,15 @@ $app->define(<<<'JSON'
               "columns": [
                 {
                   "table": "users",
-                  "column": "user_id",
-                  "alias": "CountId",
-                  "aggregate": "COUNT"
+                  "column": "firstname"
+                },
+                {
+                  "table": "users",
+                  "column": "lastname"
+                },
+                {
+                  "table": "users",
+                  "column": "user_type"
                 }
               ],
               "table": {
@@ -43,7 +62,6 @@ $app->define(<<<'JSON'
               },
               "primary": "user_id",
               "joins": [],
-              "groupBy": [],
               "wheres": {
                 "condition": "AND",
                 "rules": [
@@ -59,9 +77,7 @@ $app->define(<<<'JSON'
                       "type": "number",
                       "columnObj": {
                         "type": "increments",
-                        "default": "",
                         "primary": true,
-                        "unique": true,
                         "nullable": false,
                         "name": "user_id"
                       }
@@ -81,30 +97,8 @@ $app->define(<<<'JSON'
                       "columnObj": {
                         "type": "integer",
                         "primary": false,
-                        "unique": false,
-                        "nullable": true,
+                        "nullable": false,
                         "name": "active"
-                      }
-                    },
-                    "operation": "="
-                  },
-                  {
-                    "id": "users.user_type",
-                    "field": "users.user_type",
-                    "type": "string",
-                    "operator": "equal",
-                    "value": "{{'Admin'}}",
-                    "data": {
-                      "table": "users",
-                      "column": "user_type",
-                      "type": "text",
-                      "columnObj": {
-                        "type": "string",
-                        "maxLength": 255,
-                        "primary": false,
-                        "unique": false,
-                        "nullable": true,
-                        "name": "user_type"
                       }
                     },
                     "operation": "="
@@ -113,7 +107,7 @@ $app->define(<<<'JSON'
                 "conditional": null,
                 "valid": true
               },
-              "query": "SELECT COUNT(user_id) AS CountId\nFROM users\nWHERE user_id = :P1 /* {{identity}} */ AND active = :P2 /* {{1}} */ AND user_type = :P3 /* {{'Admin'}} */",
+              "query": "SELECT firstname, lastname, user_type\nFROM users\nWHERE user_id = :P1 /* {{identity}} */ AND active = :P2 /* {{1}} */",
               "params": [
                 {
                   "operator": "equal",
@@ -126,43 +120,26 @@ $app->define(<<<'JSON'
                   "type": "expression",
                   "name": ":P2",
                   "value": "{{1}}"
-                },
-                {
-                  "operator": "equal",
-                  "type": "expression",
-                  "name": ":P3",
-                  "value": "{{'Admin'}}"
                 }
               ]
             }
           },
-          "output": false,
+          "output": true,
           "meta": [
             {
-              "type": "number",
-              "name": "CountId"
+              "type": "text",
+              "name": "firstname"
+            },
+            {
+              "type": "text",
+              "name": "lastname"
+            },
+            {
+              "type": "text",
+              "name": "user_type"
             }
           ],
           "outputType": "object"
-        },
-        {
-          "name": "",
-          "module": "core",
-          "action": "condition",
-          "options": {
-            "if": "{{(query.CountId!=1)}}",
-            "then": {
-              "steps": {
-                "name": "Resp",
-                "module": "core",
-                "action": "redirect",
-                "options": {
-                  "url": "/402.php"
-                }
-              }
-            }
-          },
-          "outputType": "boolean"
         }
       ]
     }

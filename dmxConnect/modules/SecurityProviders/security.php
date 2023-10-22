@@ -5,9 +5,9 @@ $exports = <<<'JSON'
   "module": "auth",
   "action": "provider",
   "options": {
-    "secret": "nYswZdHQMqYAIqz",
+    "secret": "LmXvsjN30fOcfKi",
     "provider": "Database",
-    "connection": "compensation",
+    "connection": "robcompensation",
     "users": {
       "table": "users",
       "identity": "user_id",
@@ -31,24 +31,23 @@ $exports = <<<'JSON'
           }
         ]
       },
-      "Admin": {
+      "AdminAccess": {
         "table": "users",
         "identity": "user_id",
         "conditions": [
           {
-            "column": "user_type",
-            "operator": "=",
-            "value": "Admin"
-          },
-          {
             "column": "active",
             "operator": "=",
             "value": "1"
+          },
+          {
+            "column": "user_type",
+            "operator": "=",
+            "value": "Admin"
           }
         ]
       }
-    },
-    "passwordVerify": true
+    }
   },
   "meta": [
     {

@@ -1,6 +1,7 @@
 <!-- Wappler include head-page="users.php" appConnect="local" is="dmx-app" bootstrap5="local" fontawesome_5="cdn" components="{dmxBootstrap5Navigation:{},dmxBrowser:{}}" -->
 <div is="dmx-browser" id="browser1"></div>
 <dmx-serverconnect id="scLogout" url="dmxConnect/api/Logout.php" noload dmx-on:success="browser1.goto('index.php')" dmx-on:error="browser1.goto('index.php')" dmx-on:unauthorized="browser1.goto('index.php')" dmx-on:forbidden="browser1.goto('index.php')"></dmx-serverconnect>
+<dmx-serverconnect id="scwhoami" url="dmxConnect/api/whoami.php"></dmx-serverconnect>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Rewards Calculator</a>
@@ -10,10 +11,10 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="users.php">Home</a>
+                        <a class="nav-link active" aria-current="page" href="calculator.php">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="calculator.php">Calculator</a>
+                    <li class="nav-item" dmx-show="(scwhoami.data.query.user_type=='Admin')">
+                        <a class="nav-link" href="users.php">Users</a>
                     </li>
                 </ul>
                 <form class="d-flex ms-lg-auto">

@@ -1,4 +1,23 @@
-<!doctype html>
+<?php
+require('dmxConnectLib/dmxConnect.php');
+
+$app = new \lib\App();
+
+$app->exec(<<<'JSON'
+{
+	"steps": [
+		"Connections/robcompensation",
+		"SecurityProviders/security",
+		{
+			"module": "auth",
+			"action": "restrict",
+			"options": {"permissions":"write","loginUrl":"index.php","forbiddenUrl":"402.php","provider":"security"}
+		}
+	]
+}
+JSON
+, TRUE);
+?><!doctype html>
 <html>
 
 <head>
