@@ -23,6 +23,11 @@ $exports = <<<'JSON'
             "column": "active",
             "operator": "=",
             "value": "1"
+          },
+          {
+            "column": "calculator_access",
+            "operator": "=",
+            "value": "1"
           }
         ]
       },

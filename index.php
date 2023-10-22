@@ -28,7 +28,7 @@
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                    <form id="scFormLogin" method="post" action="dmxConnect/api/Login.php" is="dmx-serverconnect-form" dmx-on:success="notifies1.success('Login Success');scFormLogin.reset(true);browser1.goto('users.php')" dmx-on:forbidden="notifies1.danger(lastError.response)" dmx-on:unauthorized="notifies1.danger(lastError.response)" dmx-on:error="notifies1.danger(lastError.response)" dmx-on:invalid="notifies1.danger(lastError.response)">
+                    <form id="scFormLogin" method="post" action="dmxConnect/api/Login.php" is="dmx-serverconnect-form" dmx-on:success="notifies1.success('Login Success');scFormLogin.reset(true);browser1.goto('calculator.php')" dmx-on:forbidden="notifies1.danger(lastError.response)" dmx-on:unauthorized="notifies1.danger(lastError.response)" dmx-on:error="notifies1.danger(lastError.response)" dmx-on:invalid="notifies1.danger(lastError.response)">
 
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0">Sign in</p>

@@ -9,7 +9,7 @@ $exports = <<<'JSON'
     "options": {
         "server": "mysql",
         "connectionString": "mysql:host=198.12.220.156;charset=utf8;sslverify=false;dbname=compensation;user=doadmin;password=AVNS_6tzZcBuYlOqEjrgC0Bm",
-        "meta"  : {}
+        "meta"  : false
     }
 }
 JSON;

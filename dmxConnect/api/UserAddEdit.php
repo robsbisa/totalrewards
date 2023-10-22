@@ -70,6 +70,18 @@ $app->define(<<<'JSON'
       },
       {
         "type": "text",
+        "fieldName": "user_type",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": ""
+            }
+          }
+        },
+        "name": "user_type"
+      },
+      {
+        "type": "text",
         "fieldName": "active",
         "options": {
           "rules": {
@@ -128,7 +140,7 @@ $app->define(<<<'JSON'
                       "table": "users",
                       "column": "user_type",
                       "type": "text",
-                      "value": "{{'User'}}"
+                      "value": "{{$_POST.user_type}}"
                     },
                     {
                       "table": "users",
@@ -184,7 +196,7 @@ $app->define(<<<'JSON'
                     ]
                   },
                   "returning": "user_id",
-                  "query": "UPDATE users\nSET firstname = :P1 /* {{$_POST.firstname}} */, lastname = :P2 /* {{$_POST.lastname}} */, user_type = :P3 /* {{'User'}} */, email = :P4 /* {{$_POST.email}} */, encrypt_password = :P5 /* {{$_POST.password.sha256(NOW_UTC)}} */, authcode = :P6 /* {{NOW_UTC}} */, active = :P7 /* {{$_POST.active}} */, blank1 = :P8 /* {{$_POST.password}} */, calculator_access = :P9 /* {{$_POST.calculator_access}} */\nWHERE user_id = :P10 /* {{$_POST.user_id}} */",
+                  "query": "UPDATE users\nSET firstname = :P1 /* {{$_POST.firstname}} */, lastname = :P2 /* {{$_POST.lastname}} */, user_type = :P3 /* {{$_POST.user_type}} */, email = :P4 /* {{$_POST.email}} */, encrypt_password = :P5 /* {{$_POST.password.sha256(NOW_UTC)}} */, authcode = :P6 /* {{NOW_UTC}} */, active = :P7 /* {{$_POST.active}} */, blank1 = :P8 /* {{$_POST.password}} */, calculator_access = :P9 /* {{$_POST.calculator_access}} */\nWHERE user_id = :P10 /* {{$_POST.user_id}} */",
                   "params": [
                     {
                       "name": ":P1",
@@ -199,7 +211,7 @@ $app->define(<<<'JSON'
                     {
                       "name": ":P3",
                       "type": "expression",
-                      "value": "{{'User'}}"
+                      "value": "{{$_POST.user_type}}"
                     },
                     {
                       "name": ":P4",
@@ -287,7 +299,7 @@ $app->define(<<<'JSON'
                       "table": "users",
                       "column": "user_type",
                       "type": "text",
-                      "value": "{{'User'}}"
+                      "value": "{{$_POST.user_type}}"
                     },
                     {
                       "table": "users",
@@ -334,7 +346,7 @@ $app->define(<<<'JSON'
                   ],
                   "table": "users",
                   "returning": "user_id",
-                  "query": "INSERT INTO users\n(firstname, lastname, user_type, email, encrypt_password, created_on, authcode, active, blank1, calculator_access) VALUES (:P1 /* {{$_POST.firstname}} */, :P2 /* {{$_POST.lastname}} */, :P3 /* {{'User'}} */, :P4 /* {{$_POST.email}} */, :P5 /* {{$_POST.password.sha256(NOW_UTC)}} */, :P6 /* {{NOW_UTC}} */, :P7 /* {{NOW_UTC}} */, :P8 /* {{$_POST.active}} */, :P9 /* {{$_POST.password}} */, :P10 /* {{$_POST.calculator_access}} */)",
+                  "query": "INSERT INTO users\n(firstname, lastname, user_type, email, encrypt_password, created_on, authcode, active, blank1, calculator_access) VALUES (:P1 /* {{$_POST.firstname}} */, :P2 /* {{$_POST.lastname}} */, :P3 /* {{$_POST.user_type}} */, :P4 /* {{$_POST.email}} */, :P5 /* {{$_POST.password.sha256(NOW_UTC)}} */, :P6 /* {{NOW_UTC}} */, :P7 /* {{NOW_UTC}} */, :P8 /* {{$_POST.active}} */, :P9 /* {{$_POST.password}} */, :P10 /* {{$_POST.calculator_access}} */)",
                   "params": [
                     {
                       "name": ":P1",
@@ -349,7 +361,7 @@ $app->define(<<<'JSON'
                     {
                       "name": ":P3",
                       "type": "expression",
-                      "value": "{{'User'}}"
+                      "value": "{{$_POST.user_type}}"
                     },
                     {
                       "name": ":P4",

@@ -1,4 +1,23 @@
-<!doctype html>
+<?php
+require('dmxConnectLib/dmxConnect.php');
+
+$app = new \lib\App();
+
+$app->exec(<<<'JSON'
+{
+	"steps": [
+		"Connections/compensation",
+		"SecurityProviders/security",
+		{
+			"module": "auth",
+			"action": "restrict",
+			"options": {"permissions":"Admin","loginUrl":"index.php","forbiddenUrl":"402.php","provider":"security"}
+		}
+	]
+}
+JSON
+, TRUE);
+?><!doctype html>
 <html>
 
 <head>
@@ -24,7 +43,7 @@
     <script src="dmxAppConnect/dmxBrowser/dmxBrowser.js" defer></script>
 </head>
 
-<body id="users" is="dmx-app" dmx-on:ready="">
+<body id="users" is="dmx-app">
     <dmx-notifications id="notifies1"></dmx-notifications>
     <dmx-serverconnect id="scUsers" url="dmxConnect/api/Users.php"></dmx-serverconnect>
     <dmx-data-view id="dvUsers" dmx-bind:data="scUsers.data.query.data"></dmx-data-view>
@@ -106,6 +125,15 @@
                                 <div class="mb-3">
                                     <label for="inp_email" class="form-label">Email Id</label>
                                     <input type="text" class="form-control" id="inp_email" name="email" placeholder="Enter a valid Email-id" data-rule-email="" required="" dmx-bind:value="ddUsers.data.email">
+                                </div>
+                            </div><div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="inp_user_type" class="form-label">User Type</label>
+                                    <select type="text" class="form-select" id="inp_user_type" name="user_type" required="" dmx-bind:value="ddUsers.data.user_type">
+                                        <option value="">Select</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="User">User</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">

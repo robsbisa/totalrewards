@@ -153,7 +153,7 @@ $app->define(<<<'JSON'
             "if": "{{(query.CountId!=1)}}",
             "then": {
               "steps": {
-                "name": "",
+                "name": "Resp",
                 "module": "core",
                 "action": "redirect",
                 "options": {

@@ -101,7 +101,7 @@ $app->define(<<<'JSON'
                 "recid": 1
               }
             ],
-            "query": "select `user_id`, `firstname`, `lastname`, `user_type`, `email`, `calculator_access`, `active`, `created_on`, `blank1` from `users` order by `user_id` DESC",
+            "query": "SELECT user_id, firstname, lastname, user_type, email, calculator_access, active, created_on, blank1\nFROM users\nORDER BY user_id DESC",
             "params": []
           }
         },
