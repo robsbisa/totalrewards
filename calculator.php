@@ -84,7 +84,7 @@ JSON
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">$</div>
                                                 </div>
-                                                <input type="number" class="form-control" placeholder="" id="FICAMedBenifit" dmx-bind:value="((AnnualIncome.value.toNumber()>167770)?'10397.40':(PayrollTax.value.toNumber()+(AnnualIncome.value.toNumber()*0.062)).toFixed(2))" readonly="true">
+                                                <input type="number" class="form-control" placeholder="" id="FICAMedBenifit" dmx-bind:value="((AnnualIncome.value.toNumber()>167770)?'10397.40':(PayrollTax.value.toNumber()+(AnnualIncome.value.toNumber()*0.062)).toFixed(2))" readonly="true"> 
                                             </div>
                                         </div>
                                     </div>
