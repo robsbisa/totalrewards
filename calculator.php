@@ -82,7 +82,7 @@ JSON
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">$</div>
                                         </div>
-                                        <input type="number" class="form-control" placeholder="" id="FICAMedBenifit" dmx-bind:value="((AnnualIncome.value.toNumber()>167770)?'10397.40':(PayrollTax.value.toNumber()+(AnnualIncome.value.toNumber()*0.062)))" readonly="true">
+                                        <input type="number" class="form-control" placeholder="" id="FICAMedBenifit" dmx-bind:value="((AnnualIncome.value.toNumber()>167770)?'10397.40':(PayrollTax.value.toNumber()+(AnnualIncome.value.toNumber()*0.062)).toFixed(2))" readonly="true">
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@ JSON
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">$</div>
                                         </div>
-                                        <input type="number" class="form-control" placeholder="" id="NationalUnivMatch" dmx-bind:value="((RetirementPlanPercent.value<3)?(AnnualIncome.value*0.03).toFixed(2):((RetirementPlanPercent.value>2) &amp;&amp; (RetirementPlanPercent.value<4))?(AnnualIncome.value*0.04).toFixed(2):((RetirementPlanPercent.value>3) &amp;&amp; (RetirementPlanPercent.value<5))?(AnnualIncome.value*0.05).toFixed(2):((RetirementPlanPercent.value>4) &amp;&amp; (RetirementPlanPercent.value<6))?(AnnualIncome.value*0.06).toFixed(2):(RetirementPlanPercent.value>5)?(AnnualIncome.value*0.07).toFixed(2):'')" readonly="true">
+                                        <input type="number" class="form-control" placeholder="" id="NationalUnivMatch" dmx-bind:value="(((RetirementPlanPercent.value>0) &amp;&amp; (RetirementPlanPercent.value<3))?(AnnualIncome.value*0.03).toFixed(2):((RetirementPlanPercent.value>2) &amp;&amp; (RetirementPlanPercent.value<4))?(AnnualIncome.value*0.04).toFixed(2):((RetirementPlanPercent.value>3) &amp;&amp; (RetirementPlanPercent.value<5))?(AnnualIncome.value*0.05).toFixed(2):((RetirementPlanPercent.value>4) &amp;&amp; (RetirementPlanPercent.value<6))?(AnnualIncome.value*0.06).toFixed(2):(RetirementPlanPercent.value>5)?(AnnualIncome.value*0.07).toFixed(2):'0.00')" readonly="true">
                                     </div>
                                 </div>
                             </div>
