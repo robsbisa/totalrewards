@@ -192,6 +192,19 @@ JSON
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="inp_fname" class="col-sm-3 col-form-label">Employer HSA deposit:</label>
+                            <div class="col-sm-9 col-form-label">
+                                <div class="col-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">$</div>
+                                        </div>
+                                        <input type="number" class="form-control" placeholder="" id="EmpHSADeposit" dmx-bind:value="(MedicalPlanElection.value=='HDHP/HSA')&amp;&amp;(MedicalPlanEnrollment.value=='Self only')?1500.toFixed(2):(MedicalPlanElection.value=='HDHP/HSA')&amp;&amp;(MedicalPlanEnrollment.value=='Self + Spouse')?2500.toFixed(2):(MedicalPlanElection.value=='HDHP/HSA')&amp;&amp;(MedicalPlanEnrollment.value=='Self + Child(ren)')?2500.toFixed(2):(MedicalPlanElection.value=='HDHP/HSA')&amp;&amp;(MedicalPlanEnrollment.value=='Self + Family')?3000.toFixed(2):'0.00'" readonly="true">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row mx-0 border-bottom border-dark mb-3">
                         <div class="form-group row">
@@ -282,7 +295,7 @@ JSON
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">$</div>
                                         </div>
-                                        <input type="number" class="form-control" placeholder="" id="TotalCompensation" dmx-bind:value="(AnnualIncome.value>=1?((AnnualIncome.value.toNumber()+FICAMedBenifit.value.toNumber()+NationalUnivMatch.value.toNumber()+TuitionBenefit.value.toNumber()+MedPlanEmpCont.value.toNumber()+DentPlanEmpContr.value.toNumber()+VisionPlanEmpContr.value.toNumber()+LifeInsBenefit.value.toNumber()+DisabIncoInsBen.value.toNumber()).toFixed(2)):'0.00')" readonly="true">
+                                        <input type="number" class="form-control" placeholder="" id="TotalCompensation" dmx-bind:value="(AnnualIncome.value>=1?((AnnualIncome.value.toNumber()+FICAMedBenifit.value.toNumber()+NationalUnivMatch.value.toNumber()+TuitionBenefit.value.toNumber()+MedPlanEmpCont.value.toNumber()+EmpHSADeposit.value.toNumber()+DentPlanEmpContr.value.toNumber()+VisionPlanEmpContr.value.toNumber()+LifeInsBenefit.value.toNumber()+DisabIncoInsBen.value.toNumber()).toFixed(2)):'0.00')" readonly="true">
                                     </div>
                                 </div>
                             </div>
