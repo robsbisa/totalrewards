@@ -26,11 +26,6 @@ if (!CONFIG('DEBUG')) {
 	error_reporting($errorlevel & ~(E_WARNING | E_NOTICE | E_STRICT | E_DEPRECATED));
 }
 
-$composer_path = BASE_URL . '/../vendor/autoload.php';
-if (is_readable($composer_path)) {
-	require $composer_path;
-}
-
 function fatal_handler() {
 	$error = error_get_last();
 
@@ -149,28 +144,12 @@ if (CONFIG('CORS_ORIGIN') !== FALSE) {
 		$methods = CONFIG('CORS_METHODS');
 		$allowedHeaders = CONFIG('CORS_ALLOWED_HEADERS');
 
-		if (isset($_SERVER['HTTP_ORIGIN'])) {
-			if ($origin == '*') {
-				$origin = $_SERVER['HTTP_ORIGIN'];
-			}
-
-			$allowedOrigins = explode(',', $origin);
-			if (count($allowedOrigins) > 1) {
-				$origin = FALSE;
-				foreach ($allowedOrigins as $allowedOrigin) {
-					if ($allowedOrigin == $_SERVER['HTTP_ORIGIN']) {
-						$origin = $allowedOrigin;
-						break;
-					}
-				}
-			}
+		if ($origin == '*' && isset($_SERVER['HTTP_ORIGIN'])) {
+			$origin = $_SERVER['HTTP_ORIGIN'];
 		}
 		
 		header("HTTP/1.1 204 NO CONTENT");
-		if ($origin) {
-			header("Access-Control-Allow-Origin: $origin");
-			header("Vary: Origin");
-		}
+		header("Access-Control-Allow-Origin: $origin");
 		header("Access-Control-Allow-Methods: $methods");
 		if (CONFIG('CORS_CREDENTIALS') === TRUE) {
 			header("Access-Control-Allow-Credentials: true");
@@ -181,21 +160,8 @@ if (CONFIG('CORS_ORIGIN') !== FALSE) {
 	} else {
 		$origin = CONFIG('CORS_ORIGIN') ?: '*';
 
-		if (isset($_SERVER['HTTP_ORIGIN'])) {
-			if ($origin == '*') {
-				$origin = $_SERVER['HTTP_ORIGIN'];
-			}
-
-			$allowedOrigins = explode(',', $origin);
-			if (count($allowedOrigins) > 1) {
-				$origin = FALSE;
-				foreach ($allowedOrigins as $allowedOrigin) {
-					if ($allowedOrigin == $_SERVER['HTTP_ORIGIN']) {
-						$origin = $allowedOrigin;
-						break;
-					}
-				}
-			}
+		if ($origin == '*' && isset($_SERVER['HTTP_ORIGIN'])) {
+			$origin = $_SERVER['HTTP_ORIGIN'];
 		}
 
 		try {
@@ -214,10 +180,7 @@ if (CONFIG('CORS_ORIGIN') !== FALSE) {
 			// ignore
 		}
 		
-		if ($origin) {
-			header("Access-Control-Allow-Origin: $origin");
-			header("Vary: Origin");
-		}
+		header("Access-Control-Allow-Origin: $origin");
 		if (CONFIG('CORS_CREDENTIALS') === TRUE) {
 			header("Access-Control-Allow-Credentials: true");
 		}

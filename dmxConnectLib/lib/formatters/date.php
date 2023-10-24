@@ -2,14 +2,10 @@
 
 namespace lib\core;
 
-function formatter_formatDate($val, $format, $utc = FALSE) {
+function formatter_formatDate($val, $format) {
     if ($val == NULL) return NULL;
 
     $date = new \DateTime((is_numeric($val) ? '@' : '') . $val);
-
-    if ($utc) {
-        $date->setTimezone(new DateTimeZone("UTC"));
-    }
 
     $format = str_replace('yyyy', 'Y', $format);
     $format = str_replace('yy', 'y', $format);

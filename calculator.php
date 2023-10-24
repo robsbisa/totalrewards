@@ -78,13 +78,13 @@ JSON
                                 </div>
                                 <div class="form-group row">
                                     <label for="inp_fname" class="col-sm-3 col-form-label">Your matching FICA/ Medicare benefit:</label>
-                                    <div class="col-sm-9 col-form-label">
+                                    <div class="col-sm-9 col-form-label">   
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">$</div>
                                                 </div>
-                                                <input type="number" class="form-control" placeholder="" id="FICAMedBenifit" dmx-bind:value="((AnnualIncome.value.toNumber()>167770)?'10397.40':(PayrollTax.value.toNumber()+(AnnualIncome.value.toNumber()*0.062)).toFixed(2))" readonly="true"> 
+                                                <input type="number" class="form-control" placeholder="" id="FICAMedBenifit" dmx-bind:value="((AnnualIncome.value.toNumber()>167770)?(10397.40+PayrollTax.value.toNumber()).toFixed(2):(PayrollTax.value.toNumber()+(AnnualIncome.value.toNumber()*0.062)).toFixed(2))" readonly="true"> 
                                             </div>
                                         </div>
                                     </div>
@@ -222,13 +222,13 @@ JSON
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inp_fname" class="col-sm-3 col-form-label">Dental plan employer contribution:</label>
+                                    <label for="inp_fname" class="col-sm-3 col-form-label">Dental plan employer contribution: </label>
                                     <div class="col-sm-9 col-form-label">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">$</div>
-                                                </div>
+                                                </div> 
                                                 <input type="number" class="form-control" placeholder="" id="DentPlanEmpContr" dmx-bind:value="((DentalPlanEnrollment.value=='Self only'||DentalPlanEnrollment.value=='Waiving')?'0.00':(DentalPlanEnrollment.value=='Self + Spouse')?432.36:(DentalPlanEnrollment.value=='Self + Child(ren)')?615.60:(DentalPlanEnrollment.value=='Self + Family')?908.40:'0.00')" readonly="true">
                                             </div>
                                         </div>

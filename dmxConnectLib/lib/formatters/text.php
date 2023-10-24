@@ -10,27 +10,27 @@ if (!function_exists('boolval')) {
 
 function formatter_lowercase($val) {
     if ($val == NULL) return NULL;
-    return utf8_strtolower(strval($val));
+    return strtolower(strval($val));
 }
 
 function formatter_uppercase($val) {
     if ($val == NULL) return NULL;
-    return utf8_strtoupper(strval($val));
+    return strtoupper(strval($val));
 }
 
 function formatter_camelize($val) {
     if ($val == NULL) return NULL;
     $val = strval($val);
-    $val = utf8_trim($val);
+    $val = trim($val);
     $val = preg_replace_callback('/(\-|_|\s)+(.)?/', function($match) {
-        return (isset($match[2]) ? utf8_strtoupper($match[2]) : '');
+        return (isset($match[2]) ? strtoupper($match[2]) : '');
     }, $val);
     return $val;
 }
 
 function formatter_capitalize($val) {
     if ($val == NULL) return NULL;
-    return utf8_ucfirst(strval($val));
+    return ucfirst(strval($val));
 }
 
 function formatter_dasherize($val) {
@@ -39,20 +39,20 @@ function formatter_dasherize($val) {
     $val = preg_replace('/[_\s]+/', '-', $val);
     $val = preg_replace('/([A-Z])/', '-$1', $val);
     $val = preg_replace('/-+/', '-', $val);
-    return utf8_strtolower($val);
+    return strtolower($val);
 }
 
 function formatter_humanize($val) {
     if ($val == NULL) return NULL;
     $val = strval($val);
-    $val = utf8_trim($val);
+    $val = trim($val);
     $val = preg_replace('/([a-z\d])([A-Z]+)/', '$1_$2', $val);
     $val = preg_replace('/[-\s]+/', '_', $val);
-    $val = utf8_strtolower($val);
+    $val = strtolower($val);
     $val = preg_replace('/_id$/', '', $val);
     $val = str_replace('_', ' ', $val);
-    $val = utf8_trim($val);
-    return utf8_ucfirst($val);
+    $val = trim($val);
+    return ucfirst($val);
 }
 
 function formatter_slugify($val) {
@@ -62,9 +62,9 @@ function formatter_slugify($val) {
     $val = strval($val);
     $val = strtr($val, $a, $b);
     $val = strip_tags($val);
-    //$val = utf8_decode($val);
+    $val = utf8_decode($val);
     $val = preg_replace('/[^\w\s]/', '', $val);
-    $val = utf8_strtolower($val);
+    $val = strtolower($val);
     $val = preg_replace('/[_\s]+/', '-', $val);
     $val = preg_replace('/-+/', '-', $val);
     $val = preg_replace('/^-/', '', $val);
@@ -74,22 +74,22 @@ function formatter_slugify($val) {
 function formatter_underscore($val) {
     if ($val == NULL) return NULL;
     $val = strval($val);
-    $val = utf8_trim($val);
+    $val = trim($val);
     $val = preg_replace('/([a-z\d])([A-Z]+)/', '$1_$2', $val);
     $val = preg_replace('/[-\s]+/', '_', $val);
-    return utf8_strtolower($val);
+    return strtolower($val);
 }
 
 function formatter_titlecase($val) {
-    return utf8_ucwords(strval($val));
+    return ucwords(strval($val));
 }
 
 function formatter_camelcase($val) {
     if ($val == NULL) return NULL;
     $val = strval($val);
-    $val = utf8_strtolower($val);
+    $val = strtolower($val);
     $val = preg_replace_callback('/\s+(\S)/', function($match) {
-        return utf8_strtoupper($match[1]);
+        return strtoupper($match[1]);
     }, $val);
     return $val;
 }
@@ -101,7 +101,7 @@ function formatter_replace($val, $search, $replace) {
 
 function formatter_trim($val) {
     if ($val == NULL) return NULL;
-    return utf8_trim(strval($val));
+    return trim(strval($val));
 }
 
 function formatter_split($val, $delimiter) {
@@ -112,7 +112,7 @@ function formatter_pad($val, $length, $chr = ' ', $pos = 'left') {
     $pad_type = STR_PAD_LEFT;
     if ($pos == 'right') $pad_type = STR_PAD_RIGHT;
     if ($pos == 'center') $pad_type = STR_PAD_BOTH;
-    return utf8_str_pad(strval($val), intval($length), strval($chr), $pad_type);
+    return str_pad(strval($val), intval($length), strval($chr), $pad_type);
 }
 
 function formatter_repeat($val, $num) {
@@ -120,7 +120,7 @@ function formatter_repeat($val, $num) {
 }
 
 function formatter_substr($val, $start, $length = NULL) {
-    return utf8_substr(strval($val), intval($start), $length == NULL ? strlen($val) : intval($length));
+    return substr(strval($val), intval($start), $length == NULL ? strlen($val) : intval($length));
 }
 
 function formatter_trunc($val, $num, $useWordBoundry = FALSE, $chr = '…') {
@@ -129,11 +129,11 @@ function formatter_trunc($val, $num, $useWordBoundry = FALSE, $chr = '…') {
     $useWordBoundry = boolval($useWordBoundry);
     $chr = strval($chr);
 
-    if (utf8_strlen($val) > $num) {
-        $val = utf8_substr($val, 0, $num - 1);
+    if (strlen($val) > $num) {
+        $val = substr($val, 0, $num - 1);
 
         if ($useWordBoundry && strpos($val, ' ') !== FALSE) {
-            $val = utf8_substr($val, 0, utf8_strrpos($val, ' '));
+            $val = substr($val, 0, strrpos($val, ' '));
         }
 
         $val .= $chr;
@@ -151,7 +151,7 @@ function formatter_wordCount($val) {
 }
 
 function formatter_length($val) {
-    return utf8_strlen(strval($val));
+    return strlen(strval($val));
 }
 
 function formatter_urlencode($val) {

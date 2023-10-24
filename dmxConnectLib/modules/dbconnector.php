@@ -37,7 +37,6 @@ class dbconnector extends Module
           foreach ($options->sql->columns as $column) {
             if ($column->column == $options->sql->sort || (isset($column->alias) && $column->alias == $options->sql->sort)) {
               $order = (object)array(
-                'isAlias' => isset($column->alias),
                 'column' => isset($column->alias) ? $column->alias : $column->column,
                 'direction' => isset($options->sql->dir) && strtoupper($options->sql->dir) == 'DESC' ? 'DESC' : 'ASC'
               );
@@ -62,9 +61,7 @@ class dbconnector extends Module
             $results = $connection->execute($sql->query, $sql->params);
 
             if (count($results)) {
-                if (isset($options->sql->sub)) {
-                    $this->processSubQueries($connection, $results, $options->sql->sub);
-                }
+                $this->processSubQueries($connection, $results, $options->sql->sub);
 
                 if (isset($options->sql->joins) && count($options->sql->joins)) {
                     foreach ($options->sql->joins as $join) {
@@ -121,9 +118,7 @@ class dbconnector extends Module
             $results = $connection->execute($sql->query, $sql->params);
 
             if (count($results)) {
-                if (isset($options->sql->sub)) {
-                    $this->processSubQueries($connection, $results, $options->sql->sub);
-                }
+                $this->processSubQueries($connection, $results, $options->sql->sub);
 
                 if (isset($options->sql->joins) && count($options->sql->joins)) {
                     foreach ($options->sql->joins as $join) {
@@ -219,7 +214,6 @@ class dbconnector extends Module
           foreach ($options->sql->columns as $column) {
             if ($column->column == $options->sql->sort || (isset($column->alias) && $column->alias == $options->sql->sort)) {
               $order = (object)array(
-                'isAlias' => isset($column->alias),
                 'column' => isset($column->alias) ? $column->alias : $column->column,
                 'direction' => isset($options->sql->dir) && strtoupper($options->sql->dir) == 'DESC' ? 'DESC' : 'ASC'
               );
@@ -262,9 +256,7 @@ class dbconnector extends Module
             $results = $connection->execute($sql->query, $sql->params);
 
             if (count($results)) {
-                if (isset($options->sql->sub)) {
-                    $this->processSubQueries($connection, $results, $options->sql->sub);
-                }
+                $this->processSubQueries($connection, $results, $options->sql->sub);
 
                 if (isset($options->sql->joins) && count($options->sql->joins)) {
                     foreach ($options->sql->joins as $join) {

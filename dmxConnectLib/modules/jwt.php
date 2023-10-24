@@ -25,7 +25,6 @@ class jwt extends Module
     public function sign($options, $name) {
         option_require($options, 'alg');
         option_require($options, 'key');
-        option_default($options, 'expiresIn', 3600);
 
         $options = $this->app->parseObject($options);
 
@@ -43,7 +42,7 @@ class jwt extends Module
         $payload = array(
             'iat' => $time,
             'nbf' => $time + 60,
-            'exp' => $time + $options->expiresIn
+            'exp' => $time + 3600
         );
 
         if (isset($options->iss)) {
